@@ -1,1 +1,1 @@
-# Coolors-clone.-Project
+# Coolors-clone. Project
