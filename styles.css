@@ -33,9 +33,9 @@ body {
 }
 
 .col button {
-	/* убираем границы, заданные по умолчанию */
+	/* del default borders */
 	border: none;
-	/* делаем прозрачный бэкграунд, заданный по умолчанию */
+	/* del default background */
 	background: transparent; 
 	font-size: 1.5rem;
 	color: #fff;
