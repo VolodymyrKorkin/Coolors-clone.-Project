@@ -14,8 +14,8 @@ function generateRandomColor() {
 }
 
 function setRandomColors() {
-	cols.forEach((col) => {
-		console.log(col);
+	cols.forEach((col) => {		
+		col.style.background = generateRandomColor();
 	})
 }
 
