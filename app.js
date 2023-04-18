@@ -7,6 +7,24 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+document.addEventListener("click", (event) => {
+  const type = event.target.dataset.type; // dataset - obj with data attributes
+
+  if (type === "lock") {
+    // verification of click on <button> or <i>
+    const node =
+      event.target.tagName.toLowerCase() === "i"
+        ? // if <i>
+          event.target
+        : // if <button> => child <button> == <i>
+          event.target.children[0];
+
+    // change class 'lock' <==> 'open'
+    node.classList.toggle("fa-lock-open");
+    node.classList.toggle("fa-lock");
+  }
+});
+
 function generateRandomColor() {
   // RGB
   // #FF0000
