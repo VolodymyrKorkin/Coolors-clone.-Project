@@ -2,6 +2,9 @@ const cols = document.querySelectorAll(".col");
 
 // add event listener to change colors by pressing 'space'
 document.addEventListener("keydown", (event) => {
+  // cancel default behavior
+  event.preventDefault();
+
   if (event.code.toLowerCase() === "space") {
     setRandomColors();
   }
@@ -40,11 +43,19 @@ function generateRandomColor() {
 
 function setRandomColors() {
   cols.forEach((col) => {
+    // check if col is locked (<i> className = 'fa-lock')
+    const isLocked = col.querySelector("i").classList.contains("fa-lock");
+    //
     const text = col.querySelector("h2");
     const button = col.querySelector("button");
-
     const color = generateRandomColor();
     // const color = chroma.random();
+
+    // if <i> className = 'fa-lock' => return setRandomColors
+    if (isLocked) {
+      return;
+    }
+    //
 
     text.textContent = color;
     col.style.background = color;
