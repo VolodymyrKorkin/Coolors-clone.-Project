@@ -26,6 +26,10 @@ document.addEventListener("click", (event) => {
     node.classList.toggle("fa-lock-open");
     node.classList.toggle("fa-lock");
   }
+  // copying content <h2> to buffer
+  else if (type === "copyText") {
+    copyToClickboard(event.target.textContent);
+  }
 });
 
 function generateRandomColor() {
@@ -39,6 +43,12 @@ function generateRandomColor() {
   }
 
   return "#" + color;
+}
+
+// copying text of tag <h2> to buffer
+function copyToClickboard(text) {
+  // return promise
+  return navigator.clipboard.writeText(text);
 }
 
 function setRandomColors() {
@@ -55,7 +65,6 @@ function setRandomColors() {
     if (isLocked) {
       return;
     }
-    //
 
     text.textContent = color;
     col.style.background = color;
