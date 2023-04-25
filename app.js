@@ -52,6 +52,9 @@ function copyToClickboard(text) {
 }
 
 function setRandomColors() {
+  // arr colors is to save set of colors to passing a link
+  const colors = [];
+  //
   cols.forEach((col) => {
     // check if col is locked (<i> className = 'fa-lock')
     const isLocked = col.querySelector("i").classList.contains("fa-lock");
@@ -63,8 +66,11 @@ function setRandomColors() {
 
     // if <i> className = 'fa-lock' => return setRandomColors
     if (isLocked) {
+      colors.push(text.textContent);
       return;
     }
+
+    colors.push(color);
 
     text.textContent = color;
     col.style.background = color;
@@ -72,11 +78,17 @@ function setRandomColors() {
     setTextColor(text, color);
     setTextColor(button, color);
   });
+
+  updateColorsHash(colors);
 }
 
 function setTextColor(text, color) {
   const luminance = chroma(color).luminance();
   text.style.color = luminance > 0.5 ? "black" : "white";
+}
+
+function updateColorsHash(colors = []) {
+  document.location.hash = colors.toString();
 }
 
 setRandomColors();
