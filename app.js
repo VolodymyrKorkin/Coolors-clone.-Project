@@ -88,7 +88,23 @@ function setTextColor(text, color) {
 }
 
 function updateColorsHash(colors = []) {
-  document.location.hash = colors.toString();
+  document.location.hash = colors
+    .map((col) => {
+      return col.substring(1);
+    })
+    .join("-");
+}
+
+// return array of colors from hash string (e.g. #0F6211-CE76FA-E6B9A5-A51F72-5D08DA)
+function getColorsFromHash() {
+  if (document.location.hash.length > 1) {
+    return document.location.hash
+      .substring(1)
+      .split("-")
+      .map((color) => "#" + color);
+  }
+
+  return [];
 }
 
 setRandomColors();
