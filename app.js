@@ -51,18 +51,17 @@ function copyToClickboard(text) {
   return navigator.clipboard.writeText(text);
 }
 
-function setRandomColors() {
+function setRandomColors(isInitial) {
   // arr colors is to save set of colors to passing a link
-  const colors = [];
+  // if first load, make arr from hash (getColorsFromHash()), else set empty arr
+  const colors = isInitial ? getColorsFromHash() : [];
   //
-  cols.forEach((col) => {
+  cols.forEach((col, index) => {
     // check if col is locked (<i> className = 'fa-lock')
     const isLocked = col.querySelector("i").classList.contains("fa-lock");
     //
     const text = col.querySelector("h2");
     const button = col.querySelector("button");
-    const color = generateRandomColor();
-    // const color = chroma.random();
 
     // if <i> className = 'fa-lock' => return setRandomColors
     if (isLocked) {
@@ -70,7 +69,19 @@ function setRandomColors() {
       return;
     }
 
-    colors.push(color);
+    // if first load => take colors from hash, else => generate randomly
+    const color = isInitial
+      ? colors[index]
+        ? // checking if color index exist => colors[index], else generateRandomColor()
+          colors[index]
+        : generateRandomColor() //
+      : generateRandomColor();
+    // const color = chroma.random();
+
+    //if not first load => add color to arr colors
+    if (!isInitial) {
+      colors.push(color);
+    }
 
     text.textContent = color;
     col.style.background = color;
@@ -107,4 +118,5 @@ function getColorsFromHash() {
   return [];
 }
 
-setRandomColors();
+// initial(first time) set = true (setRandomColors(isInitial) === true)
+setRandomColors(true);
